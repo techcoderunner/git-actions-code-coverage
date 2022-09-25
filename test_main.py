@@ -1,4 +1,5 @@
 import unittest
+from main import Person
 
 
 class Testing(unittest.TestCase):
@@ -11,6 +12,14 @@ class Testing(unittest.TestCase):
         a = True
         b = True
         self.assertEqual(a, b)
+
+    def test_set_name(self):
+        person = Person()
+        person.set_name('Abbas')
+        self.assertEqual(person.name[0], 'Abbas')
+        
+
+    
 
 if __name__ == '__main__':
     unittest.main()
