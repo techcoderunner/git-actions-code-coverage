@@ -39,15 +39,14 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - name: Pytest
-        run: |
-          pytest --cov=. --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-fail-under=80 .
       - name: Build coverage file
         run: |
           pytest --cov=. --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-fail-under=80 . | tee pytest-coverage.txt
-
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
+      - name: Pytest
+        run: |
+          pytest --cov=. --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-fail-under=80 .
