@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 pytest pytest-cov
+          pip install flake8 pytest pytest-cov pytest-xdist
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
         run: |
@@ -41,7 +41,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Build coverage file
         run: |
-          pytest --cov=. --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-fail-under=70 . | tee pytest-coverage.txt
+          pytest --cov=. --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-fail-under=80 . | tee pytest-coverage.txt
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
@@ -49,4 +49,4 @@ jobs:
           junitxml-path: ./pytest.xml
       - name: Pytest
         run: |
-          pytest --cov=. --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-fail-under=70 .
+          pytest --cov=. --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-fail-under=80 .
